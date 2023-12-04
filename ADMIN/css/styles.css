@@ -1,0 +1,59 @@
+/* Estilos básicos para el body y el navbar */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #416387; /* Azul principal */
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;  /* Alineación a la izquierda */
+}
+
+/* Estilos para el título (h1) dentro del navbar */
+.navbar h1 {
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 40px;  /* Espaciado entre el título y las opciones */
+    text-align: center;
+    width: 100%;         /* Ocupa todo el ancho del navbar */
+}
+
+/* Estilos para los enlaces dentro del navbar */
+.navbar a {
+    color: white;
+    padding: 5px 15px;    
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 10px;  /* Espaciado entre opciones */
+    
+    /* Fondo más oscuro y borde sutil */
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50; 
+}
+
+.navbar a:hover {
+    background-color: #004399; /* Un azul aún más oscuro al pasar el cursor */
+}
+
+.insertar-btn{
+    color: white;
+    padding: 5px 15px;    
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-right: 10px;  /* Espaciado entre opciones */
+    
+    /* Fondo más oscuro y borde sutil */
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50; 
+}
+
+.insertar-btn:hover {
+    background-color: #004399; /* Un azul aún más oscuro al pasar el cursor */
+}

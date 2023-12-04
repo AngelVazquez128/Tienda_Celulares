@@ -1,0 +1,22 @@
+nav {
+    background-color: #416387;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-weight: bold;
+    border: 1px solid white;
+    /* Añadido para resaltar los bordes */
+    border-radius: 5px;
+    /* Añadido para bordes redondeados */
+}
+
+nav a:hover {
+    background-color: #334e6f;
+}

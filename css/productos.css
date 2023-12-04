@@ -1,0 +1,7 @@
+.product-card {
+    transition: transform 0.3s ease-out;
+}
+
+.product-card:hover {
+    transform: scale(1.1); /* Puedes ajustar el valor según tus preferencias */
+}
