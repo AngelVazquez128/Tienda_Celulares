@@ -57,10 +57,25 @@
         </div>
     </section>
 
+    <?php if(empty($_SESSION['id_cliente'])){
+        $session=0;
 
+    }
+    else{
+        $session=1;
+    }
+
+    ?>
+
+<input type="hidden" value="<?php echo $session;?>" id="sesion">
     <?php include 'footer.php'; ?>
 
     <?php include 'scripts.php';?>
+    <script>
+
+
+
+    </script>
 </body>
 
 </html>

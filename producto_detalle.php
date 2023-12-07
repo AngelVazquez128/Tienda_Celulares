@@ -5,6 +5,10 @@ $codigoProducto=$_GET['codigoProducto'];
 $statement = "SELECT * FROM productos WHERE codigo=$codigoProducto";
 $result = $connection->query($statement);
 $producto = mysqli_fetch_assoc($result);
+
+$sql="SELECT * FROM productos WHERE status=1 AND eliminado=0
+ORDER BY RAND() LIMIT 4;";
+$resultSimilares=$connection->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -71,52 +75,64 @@ $producto = mysqli_fetch_assoc($result);
         <input type="hidden" value="<?php echo $producto['codigo'];?>" id="inputCodigo">
         <input type="hidden" id="id_producto" value="<?=$producto['id']; ?>">
         <h2><b><?= $producto['nombre']?></b></h2>
-        <p><b>Costo:</b> $<?= $producto['costo']?></p>
+        <p><b>Costo:</b> $<?= number_format($producto['costo'])?></p>
         <p><b>Código:</b> <?php echo $producto['codigo'];?></p>
         <p><b>Stock:</b> <?= $producto['stock']?> unidades</p>
         <p><b>Descripcion:</b> <?= $producto['descripcion']; ?></p>
+        <div class="btn_cantidad">
         <label for="quantity">Cantidad:</label>
-            <button class="quantity-btn decrement" style="background-color: #f11f1f;"><span style="color: white">-</span></button>
+
             <input type="number" class="quantity-input" value="1" min="1" style="width: 10%" id="<?=$producto['id']; ?>">
-            <button class="quantity-btn increment" style="background-color: #29e529;"><span style="color: white">+</span></button>
         <button class="btn btn-primary btn-shadow btn-lg" onclick="agregarAlCarrito(<?=$producto['id']; ?>)">Agregar al Carrito</button>
+        </div>
     </div>
 </div>
 </section>
+
+<?php ?>
+
 <section>
 <div class="similar-products">
     <h2>Otros productos similares</h2>
-    <div class="card"> <!-- Repite este bloque para cada producto similar -->
-        <img src="ruta_de_la_imagen_similar.jpg" alt="Producto Similar">
-        <p>Nombre del Producto Similar</p>
-        <p>Costo: $XX.XX</p>
-        <button class="btn btn-primary btn-shadow btn-lg">Agregar al Carrito</button>
-    </div>
-    <!-- Repite este bloque para cada producto similar -->
-    <div class="card"> <!-- Repite este bloque para cada producto similar -->
-        <img src="ruta_de_la_imagen_similar.jpg" alt="Producto Similar">
-        <p>Nombre del Producto Similar</p>
-        <p>Costo: $XX.XX</p>
-        <button class="btn btn-primary btn-shadow btn-lg">Agregar al Carrito</button>
-    </div>
-    <!-- Repite este bloque para cada producto similar -->
-    <div class="card"> <!-- Repite este bloque para cada producto similar -->
-        <img src="ruta_de_la_imagen_similar.jpg" alt="Producto Similar">
-        <p>Nombre del Producto Similar</p>
-        <p>Costo: $XX.XX</p>
-        <button class="btn btn-primary btn-shadow btn-lg">Agregar al Carrito</button>
-    </div>
-    <!-- Repite este bloque para cada producto similar -->
-    <div class="card"> <!-- Repite este bloque para cada producto similar -->
-        <img src="ruta_de_la_imagen_similar.jpg" alt="Producto Similar">
-        <p>Nombre del Producto Similar</p>
-        <p>Costo: $XX.XX</p>
-        <button class="btn btn-primary btn-shadow btn-lg">Agregar al Carrito</button>
-    </div>
-    <!-- Repite este bloque para cada producto similar -->
+    <?php while($similar = $resultSimilares->fetch_assoc()){
+        echo '    <div class="card"> <!-- Repite este bloque para cada producto similar -->
+        <img src="ADMIN/'.$similar['archivo'].'" alt="Producto Similar">
+        <p>'.$similar['nombre'].'</p>
+        <p>Costo: $'.$similar['costo'].'</p>
+        <center>
+        <input type="number" class="quantity-input" value="1" min="1" style="width: 25%" id="'.$similar['id'].'">
+        </center>
+        <br>
+        <button class="btn btn-primary btn-shadow btn-lg" onclick="agregarAlCarrito('.$similar['id'].')">Agregar al Carrito</button>
+    </div>';
+
+    }
+    ?>
+
+
 </div>
+
 </section>
+<?php if(empty($_SESSION['id_cliente'])){
+    $session=0;
+
+}
+else{
+    $session=1;
+}
+
+?>
+
+<input type="hidden" value="<?php echo $session;?>" id="sesion">
 <?php include 'footer.php'; ?>
 <?php include 'scripts.php'; ?>
+<script>
+    var sessionValue=$('#sesion').val();
+    console.log(sessionValue);
+    if(sessionValue==0){
+        console.log('si entra al final');
+        $('.btn_cantidad').hide();
+    }
+</script>
 </body>
 </html>

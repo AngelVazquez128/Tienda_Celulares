@@ -4,9 +4,9 @@ $connection = conectarBD();
 $statement = "SELECT * FROM productos WHERE status=1 AND eliminado = 0 ORDER BY RAND() LIMIT 6  ";
 $result = $connection->query($statement);
 
-$sql="SELECT * FROM promociones WHERE status=1 AND eliminado=0 ORDER BY RAND() LIMIT 1";
-$resPromocion=$connection->query($sql);
-$promocion=$resPromocion->fetch_assoc();
+$sql = "SELECT * FROM promociones WHERE status=1 AND eliminado=0 ORDER BY RAND() LIMIT 1";
+$resPromocion = $connection->query($sql);
+$promocion = $resPromocion->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +22,12 @@ $promocion=$resPromocion->fetch_assoc();
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="js/entrar_detalleProducto.js"></script>
     <script src="js/agregar_carrito.js"></script>
+    <script src="js/activarBotonesAgregar.js"></script>
+
+
 
     <?php include 'librerias.php' ?>
+    <link href="css/banner_home.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,10 +70,14 @@ $promocion=$resPromocion->fetch_assoc();
         }
     </style>
 </head>
-<body >
+<body>
+
+
 <?php include 'navbar.php'; ?>
 
 
+
+<!-- Information notification container -->
 
 <section id="features" class="bg-white">
     <div class="container">
@@ -82,38 +90,48 @@ $promocion=$resPromocion->fetch_assoc();
             </div>
             <div id="banner">
                 <!-- Aquí se cargará la imagen de la base de datos -->
-                <img src="ADMIN/<?php echo $promocion['archivo'];?>" alt="Promoción Especial">
+                <img src="ADMIN/<?php echo $promocion['archivo']; ?>" alt="Promoción Especial">
             </div>
             <!-- End of Section Title -->
             <div class="row">
                 <!-- Features Holder-->
                 <div class="col-md-10 offset-md-1 features-holder">
-                    <div class="row" >
+                    <div class="row">
 
                         <!-- Features Item -->
-                        <?php         while ($row = $result->fetch_assoc()) {
+                        <?php while ($row = $result->fetch_assoc()) {
                             echo '
                             <div class="col-md-4 col-sm-12 text-center mt-4" > <!--COLUMNA UNO-->
-                            <input type="hidden" value="'.$row['codigo'].'" id="inputCodigo">
-                            <input type="hidden" id="id_producto" value="'.$row['id'].'">
+                            <input type="hidden" value="' . $row['codigo'] . '" id="inputCodigo">
+                            <input type="hidden" id="id_producto" value="' . $row['id'] . '">
                             <div class="product-card" >
-                            <div class="shadow rounded feature-item p-4 mb-4" data-aos="fade-up" onclick="redirigir('.$row['codigo'].')">
+                            <div class="shadow rounded feature-item p-4 mb-4" data-aos="fade-up" onclick="redirigir(' . $row['codigo'] . ')">
                                 <div class="my-4">
-                                   <img src="ADMIN/'.$row['archivo'].'" alt="">
+                                   <img src="ADMIN/' . $row['archivo'] . '" alt="">
                                 </div>
                                 <h4>' . $row['nombre'] . '</h4>
-                                <p><b>Codigo:</b> '. $row['codigo'].'<br><b>Precio:</b> $'.$row['costo'].'</p>
+                                <p><b>Codigo:</b> ' . $row['codigo'] . '<br><b>Precio:</b> $' . number_format($row['costo']) . '</p>
                                 
                             </div>
-                            <input type="number" placeholder="cantidad" id="'.$row['id'].'" value="" min="1" >   <br><br>
-                            <button class="btn btn-primary btn-shadow btn-lg" onclick="agregarAlCarrito('.$row['id'].')">Agregar al Carrito</button>
+                            <div class="btn_cantidad">
+                            <input type="number" placeholder="cantidad" id="' . $row['id'] . '" value="" min="1" >   <br><br>
+                            <button class="btn btn-primary btn-shadow btn-lg" onclick="agregarAlCarrito(' . $row['id'] . ')">Agregar al Carrito</button>
+                            </div>
                             </div>
 
                         </div>
                         <br><br><br><br>
                         ';
-                        }?>
+                        } ?>
 
+                        <?php if (empty($_SESSION['id_cliente'])) {
+                            $session = false;
+
+                        } else {
+                            $session = true;
+                        }
+
+                        ?>
                         <!-- End of Feature Item -->
                     </div>
                 </div>
@@ -123,10 +141,29 @@ $promocion=$resPromocion->fetch_assoc();
     </div>
 </section>
 
+
 <?php include 'footer.php'; ?>
 
-<?php include 'scripts.php';?>
+
+<?php include 'scripts.php'; ?>
 <script src="js/entrar_detalleProducto.js"></script>
+<script>
+
+
+    var sessionValue = <?php echo json_encode($session); ?>;
+    console.log("Cayo en la primera");
+    console.log(sessionValue);
+
+    function activarBotones() {
+        if (sessionValue == false) {
+            $('.btn_cantidad').hide();
+        }
+    }
+
+    activarBotones();
+</script>
+
 </body>
+
 
 </html>

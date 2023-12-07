@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 function generarProductosHTML(data){
     var container = document.querySelector('.row .features-holder .row'); // Modificado para seleccionar por clase 'row'
-
+    console.log("cayo aca");
     data.forEach(function(item) {
         var productoHTML = `
             <div class="col-md-4 col-sm-12 text-center mt-4" >
@@ -41,10 +41,12 @@ function generarProductosHTML(data){
                             <img src="ADMIN/${item.archivo}" alt="">
                         </div>
                         <h4>${item.nombre}</h4>
-                        <p><b>Codigo:</b> ${item.codigo}<br><b>Precio:</b> $${item.costo}</p>
+                        <p><b>Codigo:</b> ${item.codigo}<br><b>Precio:</b> $${ new Intl.NumberFormat().format(item.costo)}</p>
                     </div>
+                    <div class="btn_cantidad">
                     <input type="number" placeholder="cantidad" id="${item.id}" value="" min="1" >   <br><br>
-                    <button class="btn btn-primary btn-shadow btn-lg" onclick="agregarAlCarrito(${item.id})">Agregar al Carrito</button>                    
+                    <button class="btn btn-primary btn-shadow btn-lg" onclick="agregarAlCarrito(${item.id})">Agregar al Carrito</button>
+                    </div>                    
                 </div>
 
             </div>
@@ -52,6 +54,13 @@ function generarProductosHTML(data){
 
         // Agregar el HTML al contenedor
         container.innerHTML += productoHTML;
+
+        var sessionValue=$('#sesion').val();
+        console.log(sessionValue);
+        if(sessionValue==0){
+            console.log('si entra al final');
+            $('.btn_cantidad').hide();
+        }
     });
 }
 
@@ -69,3 +78,14 @@ $(document).ready(function(){
     });
 
 });
+
+
+
+    function activarBotones(){
+        var sessionValue=$('#sesionActiva').val();
+        console.log(sessionValue);
+        if(sessionValue==false){
+            $('#btn_cantidad').hide();
+        }
+    }
+

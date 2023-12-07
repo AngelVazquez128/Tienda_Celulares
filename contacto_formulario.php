@@ -7,8 +7,9 @@
     <title>CONTACTO</title>
     <meta name="description" content="Roxy">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <?php include 'librerias.php' ?>
+    <script src="js/validar_formularioContacto.js"></script>
 
 </head>
 <body data-target="#navbar" class="static-layout">
@@ -24,7 +25,7 @@
                             Contact Us
                         </h2>
                     </div>
-                    <form method="post" name="contact-us" action="contacto_envia.php">
+                    <form method="post" name="contact-us" action="contacto_envia.php" id="miFormulario">
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
@@ -40,7 +41,7 @@
                                           placeholder="Mensaje"></textarea>
                             </div>
                             <div class="col-md-12 text-center">
-                                <button class="btn btn-primary btn-shadow btn-lg" type="submit" name="submit">
+                                <button class="btn btn-primary btn-shadow btn-lg" type="submit"  name="submit" onclick="validarForm();">
                                     Enviar
                                 </button>
                             </div>

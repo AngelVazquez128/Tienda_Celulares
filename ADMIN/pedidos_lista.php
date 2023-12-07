@@ -33,7 +33,7 @@ if (!isset($_SESSION['id']) || $_SESSION['id'] === null) {
 <?php
 require "conexionBD.php";
 $connection = conectarBD();
-$statement = "SELECT * FROM pedidos WHERE status=0";
+$statement = "SELECT * FROM pedidos WHERE status=1";
 $result = $connection->query($statement);
 if ($result->num_rows > 0) {
     // Mostrar los registros

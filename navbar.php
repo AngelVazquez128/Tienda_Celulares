@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <nav id="header-navbar" class="navbar navbar-expand-lg py-2">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center text-white" href="/">
@@ -21,6 +24,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="carrito_paso01.php">Carrito</a>
                 </li>
+                <?php if(empty($_SESSION['id_cliente'])){ ?>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php">Login</a>
+                </li>
+                <?php }else { ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="cerrar_sesion.php">Cerrar sesion</a>
+                </li>
+                <?php }?>
+
                 <li class="nav-item">
                     <a id="side-search-open" class="nav-link" href="#">
                         <span class="lnr lnr-magnifier"></span>

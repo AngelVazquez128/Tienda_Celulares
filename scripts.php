@@ -1,3 +1,9 @@
+<div id="information-container" class="hidden">
+    <div class="information-message" id="information-message"></div>
+    <span class="close-information" onclick="closeInformation()">&times;</span>
+</div>
+
+<script src="js/notificacion.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 <script src="vendor/bootstrap/popper.min.js"></script>
 <script src="vendor/bootstrap/bootstrap.min.js"></script>
